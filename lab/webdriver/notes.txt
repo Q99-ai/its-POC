@@ -1,0 +1,8 @@
+https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json
+
+
+
+
+En esta página Hay un JSON con las difrentes versioens de los driverr para cada sistema y arquitectura.
+
+Será uitl si queremos mantener actualziado con los spiders funcionen
