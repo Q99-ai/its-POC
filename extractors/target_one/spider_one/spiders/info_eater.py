@@ -5,31 +5,23 @@ from spider_one.items import ArticleItem
 
 '''
 
-TARGETS:
 
-gaming-page/
-seguridad-page/
-cloud-page/
-inteligencia-artificial-page/
-fintech-page/
-conectividad-y-networking-page/
 
 ...
 
 
 '''
 
-targets = ['gaming-page','seguridad-page','cloud-page','inteligencia-artificial-page','fintech-page','conectividad-y-networking-pag']
+targets = ['seguridad-page','cloud-page','inteligencia-artificial-page','fintech-page']
 
 
 class InfoEaterSpider(scrapy.Spider):
     name = "info_eater"
     allowed_domains = ["www.itsitio.com"]
     #page/page/2/
-    start_urls = [f"https://www.itsitio.com/{targets[1]}/page/%d/"% i for i in range(1,10)]
-
-
-
+    start_urls = [f"https://www.itsitio.com/{targets[3]}/page/%d/"% i for i in range(1,100)]
+    
+                  
     def parse(self, response):
         title_xpath = './/h2[@class="post-title"]/a/text()'
         date_xpath = './/span[@class="date meta-item tie-icon"]/text()'
@@ -57,8 +49,9 @@ class InfoEaterSpider(scrapy.Spider):
     def parse_article(self, response):
         item = response.meta['item']
         
-        for text in response.xpath('//*[@class="entry-content entry clearfix"]'):
+        for text in response.xpath('//div[@class="entry-content entry clearfix"]'):
             item['content'] = text.xpath('.//p').getall()
+            item['text'] = text.xpath('.//p/text()').getall()
         
         
 
