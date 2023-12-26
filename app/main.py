@@ -17,7 +17,7 @@ import time
 import os
 
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
 
@@ -26,10 +26,14 @@ os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 st.title('IT-SITIO Generativo')
 st.subheader('Extraemos las últimas noticias', divider='blue')
 
-st.write(
+st.markdown(
     
 '''
-## 
+
+- Inteligencia Artificial
+- Fintech
+- Cloud Computing
+- Cybersecurity
 
 
 
@@ -42,7 +46,7 @@ def load_data():
     return df
 
 
-
+#------
 
 def data_extractors():
     '''
@@ -64,7 +68,7 @@ def data_extractors():
     return data
         
 
-
+#----
 
 def loader_and_splitter():
     df = load_data()
@@ -78,6 +82,8 @@ def loader_and_splitter():
     texts = text_splitter.split_documents(docs)
     return texts
 
+
+#------
 
 def embeddor_and_retrievers(texts):
     embeddings = OpenAIEmbeddings()
@@ -100,7 +106,7 @@ def embeddor_and_retrievers(texts):
 
 def main():    
     
-    tab1, tab2 = st.tabs(["Extractors", "Intelligent Companion"])
+    tab1, tab2, tab3 = st.tabs(["Extractors", "Intelligent Companion", "Information Network-Graph"])
     
     with tab1:
         st.header("Extractors")
@@ -114,8 +120,8 @@ def main():
         st.markdown(text)
         st.markdown("---")
         
-    #st.subheader('**Most Prolific Author**: ' )
-    #data['most_prolific'][:1]
+        st.subheader('**Most Prolific Authors**: ' )
+        data['most_prolific']
     
     
     with tab2:
@@ -125,12 +131,14 @@ def main():
         texts = loader_and_splitter()
         qa = embeddor_and_retrievers(texts) 
         
-       
+    with tab3:
+        pass
+    
     prompt = st.chat_input("Say something")
     if prompt:
         st.write(f"User has sent the following prompt: {prompt}")
         result = qa({"query": prompt})
-        result['result']
+        result
 
 
 
